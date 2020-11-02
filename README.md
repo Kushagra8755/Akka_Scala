@@ -8,6 +8,7 @@
 
 ## Day-2
 
-> @  Mechanism OF an ACTOR MODEL ! ! !
-> @ Actor handling the error
+* @  Mechanism OF an ACTOR MODEL !!!
+* @ Actor handling the error !!!
+
 
