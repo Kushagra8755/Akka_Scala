@@ -17,17 +17,17 @@ c.	The Illusion of a Stack of Call
 * **@ The Actor Model Meets New, Distributed Systems Needs. How ?**
  Many programming models or practices do not fulfill the need of the modern distributed System. The actor model focuses on communication, not just the exchange of code that occurs between the organization. The Actor model crux on the supreme points which allow the structure to act in a manner that better suits our model best.
 
-Actor fundamental unit of computation that embodies:
-	Processing
-	Storage
-	Communication
+=> Actor fundamental unit of computation that embodies:
+1. Processing
+2.	Storage
+3.	Communication
 
 
-Advantage of Actor model 
-as it allows to:
-•	Enforce encapsulation without resorting to locks.
-•	Use the cooperative entity model that responds to signals, changes state, and sends signals to each other to forward the entire application.
-•	Stop worrying about an executing mechanism that is a mismatch to our world view.
+=> Advantage of Actor model as it allows to:
+
+1.	Enforce encapsulation without resorting to locks.
+2.	Use the cooperative entity model that responds to signals, changes state, and sends signals to each other to forward the entire application.
+3.	Stop worrying about an executing mechanism that is a mismatch to our world view.
 
 
 ## Day-2
