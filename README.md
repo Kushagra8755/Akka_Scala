@@ -10,6 +10,8 @@
 
 * @  Mechanism OF an ACTOR MODEL !!!
 * @ Actor handling the error !!!
-
-
-
+* @ Akka module and library overview
+  * Remoting
+  * Cluster
+  * Cluster Sharding
+  * Cluster Singleton
