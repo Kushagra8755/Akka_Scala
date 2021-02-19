@@ -60,3 +60,93 @@ When the actor creates another actor became the parent actor of the new actor an
 * HTTP
 
 
+The most common used library :
+
+1.	 Remoting:
+```
+SBT
+         val AkkaVersion = "2.6.10"
+         libraryDependencies += "com.typesafe.akka" %% "akka-remote" % AkkaVersion
+Maven
+         <properties>
+         <akka.version>2.6.10</akka.version>
+         <scala.binary.version>2.13</scala.binary.version>
+         </properties>
+         <dependency>
+         <groupId>com.typesafe.akka</groupId>
+         <artifactId>akka-remote_${scala.binary.version}</artifactId>
+         <version>${akka.version}</version>
+         </dependency>
+```
+
+Remoting helps actors who reside on separate machines to share messages seamlessly. Though distributed as a JAR artifact, Remoting is more like a module than a library. Here patterns are the same on the remote system as we use in our local systems.
+
+Some problems were also solved by the remoting:
+
+1.	How to fix actor systems that reside on remote hosts
+2.	How to handle the individual actor's performances on remote actor systems.
+3.	How to turn messages to bytes on the wire.
+4.	How to handle low level, network connexions (and reconnections) between hosts, identify crashed actor systems and hosts, all transparently.
+5.	How to multiplex communications from an unrelated set of actors on the same network connection, all of them transparently.
+
+
+
+
+2.	Cluster  =>
+
+```
+SBT
+         val AkkaVersion = "2.6.10"
+         libraryDependencies += "com.typesafe.akka" %% "akka-cluster-typed" % AkkaVersion
+Maven
+         <properties>
+         <akka.version>2.6.10</akka.version>
+         <scala.binary.version>2.13</scala.binary.version>
+         </properties>
+         <dependency>
+         <groupId>com.typesafe.akka</groupId>
+         <artifactId>akka-cluster-typed_${scala.binary.version}</artifactId>
+         <version>${akka.version}</version>
+         </dependency>
+```
+Here, We manage sets of systems in a regimented way, Remoting mainly used for addressing and communicating with components of the remote system. In Cluster we can organize the set of the system into a “meta-system” means tied the system together which helps to analyze, describing, generalizing, etc. 
+
+Cluster solve’s many issues like:
+
+1.	establish a group of actor structures (clusters) that can communicate with each other and accept each other as part of a cluster.
+2.	distribute computations among the current set of members.
+3.	How to detect devices that are momentarily unachievable reliably.
+4.	How to delegate a certain function to the members of the cluster, in other words, to the delivery of certain services, not others.
+
+
+
+
+3.	Cluster Sharding  =>
+
+```
+SBT
+            val AkkaVersion = "2.6.10"
+            libraryDependencies += "com.typesafe.akka" %% "akka-cluster-sharding-typed" % AkkaVersion
+Maven
+           <properties>
+           <akka.version>2.6.10</akka.version>
+           <scala.binary.version>2.13</scala.binary.version>
+           </properties>
+           <dependency>
+           <groupId>com.typesafe.akka</groupId>
+           <artifactId>akka-cluster-sharding-typed_${scala.binary.version}</artifactId>
+           <version>${akka.version}</version>
+           </dependency>
+```
+
+
+
+
+Cluster Sharding helps to resolve the issue of distributing a set of actors among the member of the Akka cluster. It helps a large set of persistent entities to members of a cluster to balance and migrate them to the other nodes when members crash.
+
+Challenges that Cluster Sharding solves are:
+
+1.	How to model and scale-out a large set of stateful entities on a set of systems.
+2.	ensure that the entities in the cluster are correctly distributed such that the load is properly balanced across the devices.
+3.	ensure migrating entities from a crashed system without losing the state.
+4.	ensure that an entity does not exist on multiple systems at the same time and hence keeps consistent.
