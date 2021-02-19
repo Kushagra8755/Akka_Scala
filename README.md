@@ -47,4 +47,16 @@ The first error, if the actor delegates the task to the other actor i.e delegate
 Second, when encountering any internal fault. The actor in the system is organized in a tree-like structure.
 When the actor creates another actor became the parent actor of the new actor and if any actor fails or stopped the parent actor decide how  to act. Also if the parent actor stopped all the child actor present also get stopped.
 
+## Day-3
+
+### @ Akka modules and libraries overview 
+* Remoting 
+* Cluster 
+* Cluster Sharding
+* Cluster Singleton
+* Persistence
+* Distributed Data
+* Streams 
+* HTTP
+
 
