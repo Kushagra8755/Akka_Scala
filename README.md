@@ -91,6 +91,7 @@ Some problems were also solved by the remoting:
 
 
 
+..
 
 2.	Cluster  =>
 
@@ -119,6 +120,8 @@ Cluster solve’s many issues like:
 4.	How to delegate a certain function to the members of the cluster, in other words, to the delivery of certain services, not others.
 
 
+
+..
 
 
 3.	Cluster Sharding  =>
