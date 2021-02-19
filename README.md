@@ -32,10 +32,19 @@ c.	The Illusion of a Stack of Call
 
 ## Day-2
 
-* @  Mechanism OF an ACTOR MODEL !!!
-* @ Actor handling the error !!!
-* @ Akka module and library overview
-  * Remoting
-  * Cluster
-  * Cluster Sharding
-  * Cluster Singleton
+### @ Mechanism OF an ACTOR MODEL !!!
+
+Actors send messages to each other instead of calling methods directly. Actors don’t contain the execution of the thread they just delegate the message from the sender to the destination without blocking and complete more at the same time.
+The actor responds to the message and returns the execution when the current message is processed.
+The actor acts as an object. Object invokes the method while the actor invokes the messages. Actors execute independently and also react to the incoming messages sequentially but actor different actors currently processing the messages work concurrently with each other which helps not to drive multiple threads into the actor or causing any destruction.
+Here, Simply we can say the actor adds the messages in queue form, and the actor is scheduled and marks it to a ready state. The actor picks the message from the front of the queue and modifies it like an internal state and sends it to the other actors available and the actor gets unscheduled. This happens when the actor receives any message. After these messages go into the actor mailbox and the behavior of the actor is a  description of how the actor reacts to messages.
+Actor states are immutable and non-shareable, data propagate through messages this is how modern memory hierarchy works. Also, message data is stored on a cached line while keeping the local state and data cached at the original core.
+
+### @ Actor handling the error !!!
+
+Since there is not a call stack in the actor model due to which we need to handle the error in a different way.
+The first error, if the actor delegates the task to the other actor i.e delegate actor and it gets failed which may be because of validation issues or user-id didn’t exist etc. Here, the message is not damaged, the actor is the one containing the error. The actor reply to the messages to the sender of the message.
+Second, when encountering any internal fault. The actor in the system is organized in a tree-like structure.
+When the actor creates another actor became the parent actor of the new actor and if any actor fails or stopped the parent actor decide how  to act. Also if the parent actor stopped all the child actor present also get stopped.
+
+
