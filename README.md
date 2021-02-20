@@ -149,7 +149,136 @@ Cluster Sharding helps to resolve the issue of distributing a set of actors amon
 
 Challenges that Cluster Sharding solves are:
 
-1.	How to model and scale-out a large set of stateful entities on a set of systems.
-2.	ensure that the entities in the cluster are correctly distributed such that the load is properly balanced across the devices.
-3.	ensure migrating entities from a crashed system without losing the state.
-4.	ensure that an entity does not exist on multiple systems at the same time and hence keeps consistent.
+*	How to model and scale-out a large set of stateful entities on a set of systems.
+*	ensure that the entities in the cluster are correctly distributed such that the load is properly balanced across the devices.
+*	ensure migrating entities from a crashed system without losing the state.
+*	ensure that an entity does not exist on multiple systems at the same time and hence keeps consistent.
+
+
+4.	Cluster Singleton  =>
+
+```
+SBT
+          val AkkaVersion = "2.6.10"
+           libraryDependencies += "com.typesafe.akka" %% "akka-cluster-singletone-typed" % AkkaVersion
+Maven
+          <properties>
+          <akka.version>2.6.10</akka.version>
+          <scala.binary.version>2.13</scala.binary.version>
+          </properties>
+          <dependency>
+          <groupId>com.typesafe.akka</groupId>
+          <artifactId>akka-cluster-singletone-typed_${scala.binary.version}</artifactId>
+          <version>${akka.version}</version>
+          </dependency>
+```
+
+A single entity is responsible for a particular job, which is shared with the other members of the cluster and migrated if the host system fails. This also creates bottleneck issues as it limits the scaling. Sometimes this pattern can be unavoidable too. A system that hosts a particular actor can be select by a cluster using Cluster Singleton.
+
+This slove the many challenges like:
+* One instance of a service run at a time in a whole cluster.
+*	If the system hosting the services get crashed or shuts down services are still up and available
+*	Step by step instructions to arrive at this occurrence from any individual from the group accepting that it can relocate to different systems over the long haul.
+
+
+..
+
+5.	Persistence  =>
+
+```
+SBT
+      val AkkaVersion = "2.6.10"
+       libraryDependencies += "com.typesafe.akka" %% "akka-persistence-typed" % AkkaVersion
+Maven
+      <properties>
+      <akka.version>2.6.10</akka.version>
+      <scala.binary.version>2.13</scala.binary.version>
+      </properties>
+      <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-persistence-typed_${scala.binary.version}</artifactId>
+      <version>${akka.version}</version>
+      </dependency>
+```
+
+
+Here, Actors also keep their state in volatile memory. So if our system gets crashed or deads the data will be completely lost. Persistent allows an actor to plow on events that lead to their current state. Upon initialization, events may be replayed to regain the status of the organization hosted by the actor.
+
+
+Challenges Confronting:
+*	Restoring the state of an actor.
+*	Ensure stable messaging in the face of network failures and device crashes.
+*	How to implement CQRS System
+  * LINK: https://docs.microsoft.com/en-us/previous-versions/msp-n-p/jj591573%28v=pandp.10%29
+
+
+..
+
+
+6.	Distributed Data  =>
+
+```
+SBT
+         val AkkaVersion = "2.6.10" 
+         libraryDependencies += "com.typesafe.akka" %% "akka-cluster-typed" % AkkaVersion
+Maven
+         <properties>
+         <akka.version>2.6.10</akka.version>
+         <scala.binary.version>2.13</scala.binary.version>
+         </properties>
+         <dependency>
+         <groupId>com.typesafe.akka</groupId>
+         <artifactId>akka-cluster-typed_${scala.binary.version}</artifactId>
+         <version>${akka.version}</version>
+         </dependency>
+```
+
+This module provides an interface for data exchange and a variety of useful data types. This may achieve using CRDTs [Conflict Free Replicated Data Types ], where writes are done on different nodes and can happen at the same time and merge them afterward predictably.
+
+This intends to resolve the challenges like =>
+
+*	It accepts the writes on the nodes at cluster partition.
+*	Also, low-latency while sharing data.
+
+
+..
+
+
+7.	Streams  =>
+
+```
+SBT
+         val AkkaVersion = "2.6.10" 
+         libraryDependencies += "com.typesafe.akka" %% "akka-stream-typed" % AkkaVersion
+Maven
+         <properties>
+         <akka.version>2.6.10</akka.version>
+         <scala.binary.version>2.13</scala.binary.version>
+         </properties>
+         <dependency>
+         <groupId>com.typesafe.akka</groupId>
+         <artifactId>akka-stream-typed_${scala.binary.version}</artifactId>
+         <version>${akka.version}</version>
+         </dependency>
+```
+
+It allows us to apply the same pattern over and over again. A scenario where graphs or a chain of actors needs to process potentially large sequential events and with proper resources so that the faster processing stages do not overpower the slower ones in the graph or chain of actors.
+
+Challenges tackles =>
+
+*	Handle large sequential events with high performance and proper resource usage.
+*	Assemble reusable event/data processing parts
+*	Link asynchronous services in a versatile way with high efficiency.
+*	Uses in Reactive Streams standards which enables integrations with the third party.
+
+
+..
+
+
+8.	HTTP  =>
+
+This is a separate module in akka i.e “AKKA_ HTTP”. This offers the HTTP-based services which also implements the full-server and client-side HTTPat top of the “akka-actor” and “akka-stream”. Akka HTTP makes build integration layer easier as allow to base your app. It is not a framework as provide maximum flexibility. Frameworks like PLAY, Lagom are based on akka.
+
+Challenges tackeled =>
+
+* Stream large dataset/evemts in and out of a system using HTTP.
